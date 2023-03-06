@@ -1,0 +1,48 @@
+<!-- Template: assos.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Page assos</title>
+{% endblock %}
+
+{% block content %}
+<h1>Assos page</h1>
+
+<!-- Tableau affichant les données existantes -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>RNA ID</th>
+            <th>RNA ID EX</th>
+            <th>Gestion</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for data in datas %}
+        <tr>
+            <td>{{ data.id}}</td>
+            <td>{{ data.rna_id}}</td>
+            <td>{{ data.rna_id_ex}}</td>
+            <td>{{ data.gestion}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Formulaire d'ajout de données -->
+<form method="POST" action="{{ url_for('add_data') }}">
+    <label for="rna_id">RNA ID:</label>
+    <input type="text" id="rna_id" name="rna_id"><br><br>
+
+    <label for="rna_id_ex">RNA ID EX:</label>
+    <input type="text" id="rna_id_ex" name="rna_id_ex"><br><br>
+
+    <label for="gestion">Gestion:</label>
+    <input type="text" id="gestion" name="gestion"><br><br>
+
+    <input type="submit" value="Ajouter">
+</form>
+
+{% endblock %}

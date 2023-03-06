@@ -40,3 +40,16 @@ def hello(name=None):
     return render_template('hello.html', name=name)
 if __name__ == '-_main_-':
     app.run()
+# Ajouter cette route à votre code Flask existant
+@app.route('/add_data', methods=['POST'])
+def add_data():
+    rna_id = request.form['rna_id']
+    rna_id_ex = request.form['rna_id_ex']
+    gestion = request.form['gestion']
+
+    new_data = data(rna_id=rna_id, rna_id_ex=rna_id_ex, gestion=gestion)
+    db.session.add(new_data)
+    db.session.commit()
+
+    return redirect(url_for('assos'))
+    

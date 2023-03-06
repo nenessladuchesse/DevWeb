@@ -34,6 +34,30 @@ def assos():
     #    print(f"{data.rna_id}")
 
     return render_template('assos.html')
+@app.route('/modifier/<int:data_id>', methods=['GET', 'POST'])
+def modifier(data_id):
+    data = Data.query.get(data_id)
+
+    if request.method == 'POST':
+        data.rna_id = request.form['rna_id']
+        data.rna_id_ex = request.form['rna_id_ex']
+        data.gestion = request.form['gestion']
+        db.session.commit()
+        return redirect(url_for('assos'))
+    return render_template('modifier.html', data=data)
+
+@app.route('/ajouter', methods=['GET', 'POST'])
+def ajouter():
+    if request.method == 'POST':
+        rna_id = request.form['rna_id']
+        rna_id_ex = request.form['rna_id_ex']
+        gestion = request.form['gestion']
+        new_data = Data(rna_id=rna_id, rna_id_ex=rna_id_ex, gestion=gestion)
+        db.session.add(new_data)
+        db.session.commit()
+        return redirect(url_for('assos'))
+    return render_template('ajouter.html')
+
 @app.route('/hello')
 @app.route('/hello/<name>')
 def hello(name=None):
